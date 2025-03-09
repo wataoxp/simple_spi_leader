@@ -63,8 +63,9 @@ void SPI_Transmit8(SPI_TypeDef *SPIx,uint8_t *buf,uint16_t length)
 	{
 		LL_SPI_TransmitData8(SPIx, *buf++);
 		while(LL_SPI_IsActiveFlag_TXE(SPIx) == 0);
-		Delay(1);
 	}
+	while(LL_SPI_IsActiveFlag_BSY(SPIx));
+
 	LL_SPI_Disable(SPIx);
 }
 void SPI_MasterTransmitReceive8(SPI_TypeDef *SPIx,uint8_t *TXbuf,uint8_t *Rxbuf,uint32_t size)
